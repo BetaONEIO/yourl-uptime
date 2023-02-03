@@ -1,20 +1,16 @@
 version: 2.1
 orbs:
-  node: circleci/node@2.1.1
-jobs:
-  install-node-12:
-    docker:
-      - image: "cimg/base:2020.05"
-    steps:
-      - checkout
-      - node/install:
-          install-npm: false
-          node-version: 12.16.2
-      - node/install-yarn:
-          version: 1.22.4
-      - run: node --version
-      - run: yarn start
+  cypress: cypress-io/cypress@2
 workflows:
-  install-n:
+  build:
     jobs:
-      - install-node-12
+      - cypress/install:
+          build: 'npm run build' # run a custom app build step
+      - cypress/run:
+          requires:
+            - cypress/install
+          record: true # record results with Cypress Cloud
+          parallel: true # split all specs across machines
+          parallelism: 4 # use 4 CircleCI machines to finish quickly
+          group: 'all tests' # name this group "all tests" on the dashboard
+          start: 'npm start
