@@ -10,7 +10,4 @@ workflows:
           requires:
             - cypress/install
           record: true
-          parallel: true
-          parallelism: 4 quickly
-          group: 'all tests' # name this group "all tests" on the dashboard
           start: npm start
