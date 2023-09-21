@@ -1,15 +1,11 @@
 version: 2.1
-
 orbs:
   cypress: cypress-io/cypress@1
   retry: moul/retry@0.6.0
-  slack: circleci/slack@4.4.2
-
 executors:
   with-chrome:
     docker:
       - image: 'cypress/browsers:node14.16.0-chrome90-ff88'
-
 workflows:
   build:
     jobs:
@@ -17,7 +13,3 @@ workflows:
           executor: with-chrome
           browser: chrome
           store_artifacts: true
-      - slack/status:
-          requires:
-            - cypress/run
-          channel: #yourl-uptime
