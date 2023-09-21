@@ -1,11 +1,15 @@
 version: 2.1
+
 orbs:
   cypress: cypress-io/cypress@1
   retry: moul/retry@0.6.0
+  slack: circleci/slack@4.4.2 # Add the Slack orb
+
 executors:
   with-chrome:
     docker:
       - image: 'cypress/browsers:node14.16.0-chrome90-ff88'
+
 workflows:
   build:
     jobs:
@@ -13,3 +17,11 @@ workflows:
           executor: with-chrome
           browser: chrome
           store_artifacts: true
+          post-steps: # Add post-steps to send a Slack notification after the job completes
+            - slack/notify:
+                event: fail
+                webhook: $SLACK_WEBHOOK # Ensure you set this as an environment variable in CircleCI
+
+      # To send a Slack notification on job success, uncomment the below lines
+      #- slack/notify-on-job-success:
+      #    webhook: $SLACK_WEBHOOK
