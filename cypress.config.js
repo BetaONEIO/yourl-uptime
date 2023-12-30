@@ -6,6 +6,7 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
     projectId: "fe5hup",
-    chromeWebSecurity: false
+    chromeWebSecurity: false,
+    defaultCommandTimeout: 10000
   },
 });

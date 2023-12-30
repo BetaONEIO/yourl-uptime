@@ -1,6 +1,6 @@
 describe('https and uptime check', () => {
   it('passes', () => {
-    cy.visit('www.twend.io/')
+    cy.visit('www.gamefolio.com/')
     cy.url().should('include', 'https');
   })
 })
